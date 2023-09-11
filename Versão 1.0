@@ -1,0 +1,58 @@
+import requests
+import time
+
+link = 'https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL'
+requisição = requests.get(link)
+requisição_dic = requisição.json()
+cotação_dolar = float(requisição_dic["USDBRL"]["bid"])
+cotação_euro = float(requisição_dic["EURBRL"]["bid"])
+
+print('$ Conversão de Valores $')
+
+while True:
+  print('Qual moeda você quer comprar: ')
+  moeda = input('euro ou dólar? ').lower()
+
+  if moeda == 'euro':
+      print('Defina uma Quantidade de euros ou Aproveite o Que o Dinheiro Pode Comprar?')
+      time.sleep(2)
+      opção = input('Quantidade ou Desembolsar? ').lower()
+
+      if opção == 'quantidade':
+          quantidade_euro = float(input('Qual a quantidade de euros desejada? '))
+          time.sleep(1)
+          print('O valor total será de R${:.2f}'.format(cotação_euro * quantidade_euro))
+
+      elif opção == 'desembolsar':
+          desembolsar_euro = float(input('Qual a quantia a desembolsar na compra? '))
+          time.sleep(1)
+          print('A quantia de euros comprada será de {:.2f} euros'.format(desembolsar_euro / cotação_euro))
+
+  elif moeda == 'dólar':
+      print('Defina uma Quantidade de dolares ou Aproveite o Que o Dinheiro Pode Comprar?')
+      time.sleep(2)
+      opção = input('Quantidade ou Desembolsar? ').lower()
+
+      if opção == 'quantidade':
+          quantidade_dolar = float(input('Qual a quantidade de euros desejada? '))
+          time.sleep(1)
+          print('O valor total de dólares será de {:.2f}'.format(cotação_dolar * quantidade_dolar))
+
+      elif opção == 'desembolsar':
+          desembolsar_dolar = float(input('Qual a quantia a desembolsar na compra? '))
+          time.sleep(1)
+          print('A quantia comprada será de {:.2f} dólares'.format(desembolsar_dolar / cotação_dolar))
+
+  else:
+      print('Moeda inválida.')
+
+
+  time.sleep(3)
+  print('Deseja reiniciar e fazer novamente a conversão? ')
+  time.sleep(2)
+  pergunta_while = input('Digite reiniciar ou finalizar para encerrar ').lower()
+
+  if pergunta_while == 'finalizar' :
+    break
+  if pergunta_while == 'reiniciar' :
+    continue
